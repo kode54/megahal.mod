@@ -250,7 +250,7 @@ static wchar_t glob_str[15000];
 static wchar_t glob_buffer[513];
 static wchar_t mbotnick[32] = _T(BOTNICK);
 static int maxlines = 10, maxtime = 60, curlines = 0, curtime = 0;
-static char texcludechans[513] = "", rexcludechans[513] = "", responsekeywords[513] = "";
+static char texcludechans[513] = "", rexcludechans[513] = "", lexcludechans[513] = "", responsekeywords[513] = "";
 static int maxsize = 100000;
 static int maxreplywords = 0;
 static int surprise = 1;
@@ -316,6 +316,7 @@ static tcl_strings my_tcl_strings[] =
 {
   {"talkexcludechans", texcludechans, 512, 0},
   {"respondexcludechans", rexcludechans, 512, 0},
+  {"learnexcludechans", lexcludechans, 512, 0},
   {"responsekeywords", responsekeywords, 512, 0},
   {"megahal_directory_resources", directory_resources, 512, 0},
   {"megahal_directory_cache", directory_cache, 512, 0},
@@ -822,7 +823,7 @@ static int pub_megahal2(char *nick, char *host, char *hand, char *channel, char 
 	}
 
 	// Learn this phrase?
-	if(learningmode && learnfrequency>0) {
+	if(learningmode && learnfrequency>0 && !istextinlist(channel, lexcludechans)) {
 		// initialize the count array - one int per chan (first time only)
 		Context;
 		if(countchans() && learncount == NULL) {
