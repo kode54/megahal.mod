@@ -34,6 +34,10 @@ set talkexcludechans ""
 # Set to # of lines or to 0 to turn this off.
 set learnfreq 2
 
+# Which channels NOT to silently learn random text from according to learningmode/learnfreq (use space delimited list)
+# Note: this has no effect on the bot learning from or speaking when it is addressed by nick
+set learnexcludechans ""
+
 
 # The following settings change the 'psychotic' level or personality of the AI slightly
 
